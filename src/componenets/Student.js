@@ -8,14 +8,15 @@ import { Paper,Button } from '@mui/material';
 
 export default function Student() {
     const paperStyle={padding:'50px 20px', width:'600', margin:'20px auto'}
-    const[name,setName]=React.useState('');
+    const[firstName,setFirstName]=React.useState('');
+    const[lastName,setLastName]=React.useState('');
     const[address,setAddress]=React.useState('');
     const[students,setStudents]=React.useState([])
 
 
     const handleClick=(e)=>{
         e.preventDefault()
-        const student={name,address}
+        const student={firstName,lastName,address}
         console.log(student)
         fetch("http://localhost:8080/student/add", {
         method:"POST", 
@@ -46,9 +47,13 @@ React.useEffect(()=>{
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label="Student Name" variant="outlined" fullWidth 
-      value={name}
-      onChange={(e)=>setName(e.target.value)}
+      <TextField id="outlined-basic" label="Student First Name" variant="outlined" fullWidth 
+      value={firstName}
+      onChange={(e)=>setFirstName(e.target.value)}
+      />
+      <TextField id="outlined-basic" label="Student Last Name" variant="outlined" fullWidth 
+      value={lastName}
+      onChange={(e)=>setLastName(e.target.value)}
       />
       <TextField id="outlined-basic" label="Student Address" variant="outlined" fullWidth 
       value={address}
@@ -63,7 +68,8 @@ React.useEffect(()=>{
       {students.map(student=>(
         <Paper elevation={6} style={{margin:"10px",padding:"15px",textAlign:"left"}} key={student.id}>
             Id: {student.id} <br/>
-            Name: {student.name} <br/>
+            First Name: {student.firstName} <br/>
+            Last Name: {student.lastName} <br/>
             Address: {student.address}
         </Paper>
       ))}
